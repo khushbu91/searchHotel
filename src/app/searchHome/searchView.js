@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import { Throttle } from 'react-throttle';
+
 class App extends React.Component {
    constructor(props) {
       super(props);
@@ -45,14 +47,14 @@ class App extends React.Component {
 
   fetchGoogleSuggestion(query) {
     var apiKey = "AIzaSyCP0c5UpyklXAc81D9uIQTlKE5ot-ZyCaY";
-    var url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+query+"&key="+apiKey;
+    var url = "http://crossorigin.me/https://maps.googleapis.com/maps/api/place/textsearch/json?query="+query+"&key="+apiKey;
    
       axios({ method: 'GET', 
         url:url,
         crossDomain: true})
        .then(res => {
           console.log(res);
-          this.setState({"googleSuggestions" : res.results})
+          this.setState({"googleSuggestions" : res.data.results})
         })
 
      
@@ -97,8 +99,10 @@ class SearchViewComponent extends React.Component {
     render() {
       return (
         <div className="container">
-          <input type="text" className="searchInput"
-          value={this.state.inputValue} onChange={this.handleChange}/>
+          <Throttle time="200" handler="onChange">
+              <input type="text" className="searchInput"
+              value={this.state.inputValue} onChange={this.handleChange}/>
+          </Throttle>
         </div>
       );
     }
