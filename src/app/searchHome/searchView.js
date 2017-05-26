@@ -100,8 +100,7 @@ class SearchViewComponent extends React.Component {
       return (
         <div className="container">
           <Throttle time="200" handler="onChange">
-              <input type="text" className="searchInput"
-              value={this.state.inputValue} onChange={this.handleChange}/>
+              <input type="text" className="searchInput"onChange={this.handleChange}/>
           </Throttle>
         </div>
       );
