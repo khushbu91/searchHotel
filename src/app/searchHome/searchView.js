@@ -99,7 +99,7 @@ class SearchViewComponent extends React.Component {
     render() {
       return (
         <div className="container">
-          <Throttle time="200" handler="onChange">
+          <Throttle time="300" handler="onChange">
               <input type="text" className="searchInput"onChange={this.handleChange}/>
           </Throttle>
         </div>
@@ -134,7 +134,10 @@ class GoogleSuggestionComponent extends React.Component{
      render(){
       var suggestions = this.props.googleSuggestions;
       var list = suggestions.map(function(suggestion, index){
-                  return <li>{suggestion.name}</li>;
+                  return <li>
+                    <span className="locIcon"></span>
+                    <span className="sugText">{suggestion.name}</span>
+                  </li>;
                 })
       if(suggestions.length>0){        
         return(

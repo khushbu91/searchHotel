@@ -30,12 +30,12 @@
     background-image: url(https://static.fabhotels.com/img/fab_sprite_v14.png);
     background-position: -176px -97px;
 }
-.hotelSuggestion li{
+.hotelSuggestion li, .googleSuggestion li{
     position: relative;
     list-style-type: none;
     padding-bottom: 8px;
 }
-.hotelSuggestion li .sugText{
+.hotelSuggestion li .sugText, .googleSuggestion li .sugText{
     margin-left: 29px;
     font-size: 14px;
     color: #696767;
