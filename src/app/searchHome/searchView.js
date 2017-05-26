@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-
 class App extends React.Component {
    constructor(props) {
       super(props);
@@ -47,19 +46,16 @@ class App extends React.Component {
   fetchGoogleSuggestion(query) {
     var apiKey = "AIzaSyCP0c5UpyklXAc81D9uIQTlKE5ot-ZyCaY";
     var url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+query+"&key="+apiKey;
-   /*
+   
       axios({ method: 'GET', 
         url:url,
         crossDomain: true})
        .then(res => {
           console.log(res);
           this.setState({"googleSuggestions" : res.results})
-        })*/
+        })
 
-       axios({ method: 'GET', url:url,
-        crossDomain: true,}) 
-        .then(() => {  })
-        .catch((error) => { console.log(error);});
+     
   }
 
 
@@ -101,7 +97,8 @@ class SearchViewComponent extends React.Component {
     render() {
       return (
         <div className="container">
-          <input type="text" value={this.state.inputValue} onChange={this.handleChange}/>
+          <input type="text" className="searchInput"
+          value={this.state.inputValue} onChange={this.handleChange}/>
         </div>
       );
     }
@@ -112,13 +109,21 @@ class SuggestionViewComponnet extends React.Component{
     render(){
       var suggestions = this.props.suggestions;
       var list = suggestions.map(function(suggestion, index){
-                  return <li>{suggestion.name}</li>;
+                  return <li><span className="locIcon"></span>
+                  <span className="sugText">{suggestion.name}</span></li>;
                 })
-      return(
-        <div className="suggestionContainer">
-           <ul>{list}</ul>
-        </div>
-      )
+      if(suggestions.length>0){          
+        return(
+          <div className="hotelSuggestion">
+              <div className="suggestionHead">Hotels</div>
+             <ul>{list}</ul>
+          </div>
+        )
+      }else{
+        return (
+          <span></span>
+        )
+      }
     }
 }
 
@@ -128,11 +133,18 @@ class GoogleSuggestionComponent extends React.Component{
       var list = suggestions.map(function(suggestion, index){
                   return <li>{suggestion.name}</li>;
                 })
-      return(
-        <div className="googleSuggestionContainer">
-           <ul>{list}</ul>
-        </div>
-      )
+      if(suggestions.length>0){        
+        return(
+          <div className="googleSuggestion">
+              <div className="suggestionHead">Locations</div>
+             <ul>{list}</ul>
+          </div>
+        )
+       }else{
+        return(
+          <span></span>
+        )
+       } 
     }   
 }
 
