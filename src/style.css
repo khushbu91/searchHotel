@@ -1,6 +1,9 @@
 #root{
     background: #fff;
 }
+input:focus{
+    outline: none;
+}
 .container{
     text-align: center;
 }
