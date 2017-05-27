@@ -13,34 +13,15 @@ class App extends React.Component {
    }
 
    fetchSuggestions(query){
-    var data = 
-      [
-        {"name":"fabHotel New",
-        "place":"New Delhi"
-        },
-        {"name":"TajHotel Ggn",
-        "place":"Gurgaon"
-        },
-        {"name":"hotelFab New ggn",
-        "place":"New Delhi"
-        },
-        {"name":"fabHotel old ggn",
-        "place":"New Delhi"
-        },
-        {"name":"fabHotel old delhi",
-        "place":"New Delhi"
-        },
-        {"name":"fabHotelOld NewDelhi",
-        "place":"New Delhi"
-        },
-      ];  
-    
-    var suggestions = data.filter(function(data){
-      if(data.name.indexOf(query)>-1){
-        return data.name;
-      }
-    });
-    this.setState({"suggestions" : suggestions});
+     var url = "http://localhost:4000/hotels/query/"+query;
+      var suggestions= [];
+      axios({ method: 'GET', 
+        url:url,
+        crossDomain: true})
+       .then(res => {
+          suggestions  = res.data.data;
+        this.setState({"suggestions" : suggestions});
+      });
     return suggestions;
   }
 
@@ -53,11 +34,8 @@ class App extends React.Component {
         url:url,
         crossDomain: true})
        .then(res => {
-          console.log(res);
           this.setState({"googleSuggestions" : res.data.results})
         })
-
-     
   }
 
 
